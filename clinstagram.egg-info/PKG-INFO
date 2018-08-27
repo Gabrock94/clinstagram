@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: clinstagram
+Version: 0.0.0.1
+Summary: A CLI Instagram client
+Home-page: https://github.com/Gabrock94/clinstagram
+Author: Giulio Gabrieli
+Author-email: gack94@gmail.com
+License: GPL-3.0
+Description: UNKNOWN
+Keywords: Instagram
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4

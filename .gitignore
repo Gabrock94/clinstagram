@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+*.log
+build
+game.zip
+build.zip
+bin
+lib
+local
+include
+share/python-wheels

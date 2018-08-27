@@ -1,0 +1,12 @@
+README.md
+setup.py
+clinstagram/__init__.py
+clinstagram/__main__.py
+clinstagram/clinstagram.py
+clinstagram.egg-info/PKG-INFO
+clinstagram.egg-info/SOURCES.txt
+clinstagram.egg-info/dependency_links.txt
+clinstagram.egg-info/entry_points.txt
+clinstagram.egg-info/not-zip-safe
+clinstagram.egg-info/requires.txt
+clinstagram.egg-info/top_level.txt
