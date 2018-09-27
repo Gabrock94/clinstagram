@@ -1,6 +1,18 @@
 # clinstagram
 A cli Instagram client
 
+## Installation
+clInstagram can be installed by downloading / cloning the repository and, from the root folder of the project, running:
+```bash
+python setup.py install
+```
+## Usage
+Open a new terminal and run
+```bash
+clinstagram
+```
+Easy, isn't it?
+
 ### Requirements
 - numpy
 - PIL
@@ -13,7 +25,6 @@ A cli Instagram client
 - InstagramAPI
 - configParser
    
-
 ## Contacts
 Feel free to contact me for questions, suggestions or to give me advice as well at: gack94@gmail.com
 
