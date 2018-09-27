@@ -1,5 +1,6 @@
 # clinstagram
-A cli Instagram client
+A cli Instagram client.
+Cause Instagram's boobs are beautiful even when Asciified!
 
 ## Installation
 clInstagram can be installed by downloading / cloning the repository and, from the root folder of the project, running:
