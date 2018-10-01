@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import getopt
@@ -6,7 +7,7 @@ import shutil
 import requests
 from InstagramAPI import InstagramAPI
 from configparser import ConfigParser 
-import sys
+from pathlib import Path
 from PIL import Image
 import numpy as np
 
@@ -32,14 +33,13 @@ def main():
             exit()
         if opt in ("--login"):
             config = ConfigParser()
-            config.read('config.ini')
+            config.read(str(Path.home())+'/.clinstagram/config.ini')
             username, password = login_GUI()
-            
             exit()
             
     try:
         config = ConfigParser()
-        config.read('config.ini')
+        config.read(str(Path.home())+'/.clinstagram/config.ini')
         username = config.get('credentials', 'username')
         password = config.get('credentials', 'password')
     except:
@@ -49,7 +49,7 @@ def main():
     api = InstagramAPI(username, password)
     if(api.login()):   
         api.timelineFeed()  # get self user feed
-        with open('data.json', 'w') as outfile:
+        with open(str(Path.home())+'/.clinstagram/data.json', 'w') as outfile:
             json.dump(api.LastJson, outfile)
             
         print("Login succes! Welcome back "+ username)
@@ -72,12 +72,19 @@ def getAverageL(image):
     # get average 
     return np.average(im.reshape(w*h)) 
 
-def asciify():
-    #gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
-    gscale1 = '@%#*+=-:. '
-    image = Image.open('img.jpg').convert('L')
+def asciify(cmap = 0):
+    #gscale1 = 
+    #gscale1 = '@%#*+=-:. '
+    gscales = ["@%#*+=-:. ",
+               "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. ",
+               "█▓▒░ "]
+               
+               
+    #gscale = 
+    gscale = gscales[cmap]
+    image = Image.open(str(Path.home())+'/.clinstagram/img.jpg').convert('L')
     W, H = image.size[0], image.size[1]
-    cols = 60
+    cols = 75
     w = W/cols
     h = w/0.5
     rows = int(H/h)
@@ -96,13 +103,12 @@ def asciify():
             img = image.crop((x1, y1, x2, y2)) 
             avg = int(getAverageL(img)) 
   
-            #gsval = gscale1[int((avg*69)/255)] 
-            gsval = gscale1[int((avg*9)/255)] 
+            gsval = gscale[int((avg*(len(gscale) - 1))/255)]
             aimg[j] += gsval 
     return("\n".join(aimg))
     
 def parseFeed(api):
-    with open('data.json','r') as data_file:
+    with open(str(Path.home())+'/.clinstagram/data.json','r') as data_file:
         feed = json.load(data_file)
     #return(feed)
     
@@ -114,7 +120,7 @@ def parseFeed(api):
                    
             if(image_url != False):
                 response = requests.get(image_url, stream=True)
-                with open('img.jpg', 'wb') as out_file:
+                with open(str(Path.home())+'/.clinstagram/img.jpg', 'wb') as out_file:
                     shutil.copyfileobj(response.raw, out_file)
                 del response
                 print("\033[H\033[J")
@@ -124,7 +130,10 @@ def parseFeed(api):
                 if(picture['has_liked']):
                     print(" - You like this picture")
                 print("\n")
-                print(picture['caption']['text']+"+\n")
+                try:
+                    print(picture['caption']['text']+"+\n")
+                except:
+                    pass
                 while(True):
                     userInput = input(": (n = next, q = quit, l=like): ")
                     if(userInput == "n"):
@@ -156,7 +165,8 @@ def show_help():
         '  usage:\n'
         '    --help, -h\t\tshows help\n'
         '    --version, -v\tshows version\n'
-        '    --login \t\tcall the login function\n')
+        '    --login \t\tcall the login function\n'
+        '    --cmap \t\tSpecify a color map (select a number between 0 and 2, default is 0)\n')
     
 def show_version():
     print(__version__)
@@ -164,13 +174,19 @@ def show_version():
 def login_GUI():
     username = input("Username: ")
     password = getpass.getpass("Password: ")
+    try:
+    # Create target Directory
+        os.chdir(str(Path.home()))
+        os.mkdir(".clinstagram")
+    except FileExistsError:
+        print("Directory already exists")
     config = ConfigParser()
-    config.read('config.ini')
+    config.read(str(Path.home())+'/.clinstagram/config.ini')
     if(config.has_section('credentials') == False):
         config.add_section('credentials')
     config.set('credentials', 'username', username)
     config.set('credentials', 'password', password)
-    with open('config.ini', 'w') as f:
+    with open(str(Path.home())+'/.clinstagram/config.ini', 'w') as f:
         config.write(f)
     return([username, password])
     

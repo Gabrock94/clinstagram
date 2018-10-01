@@ -1,6 +1,9 @@
 .DS_Store
 node_modules
 *.log
+data.json
+config.ini
+img.jpg
 build
 game.zip
 build.zip
@@ -8,4 +11,5 @@ bin
 lib
 local
 include
+dist
 share/python-wheels
