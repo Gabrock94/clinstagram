@@ -1,1 +1,12 @@
+os
+sys
+PIL
+json
+numpy
+getopt
+shutil
+pathlib
+getpass
+requests
 InstagramApi
+configparser

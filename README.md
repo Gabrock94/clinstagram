@@ -14,6 +14,16 @@ clinstagram
 ```
 Easy, isn't it?
 
+The default ASCII map uses 10 different charachters.
+To use a blocks map ([█▓▒░ ]), use:
+```bash
+clinstagram --blocks
+```
+while, for a 70 charachters map use:
+```bash
+clinstagram --detailed
+```
+
 ### Requirements
 - numpy
 - PIL
